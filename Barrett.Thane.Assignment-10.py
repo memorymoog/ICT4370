@@ -4,12 +4,13 @@ Name: Thane Barrett
 Date: 05/31/2020
 Course: Python Programming ICT-4370
 
-Program Description:  This program extends the functionality of assignment 8:  In addition to importing 
-data from a JSON formatted file, creating objects based on a Class named Stocks and graphing the closing 
-prices against closing date for each stock in the data, this program uses the Yahoo Finance API to retrieve
-the stock data and write it to the JSON file.
+Program Description:  This program extends the functionality of assignment 8 by retrieving data from Yahoo Finance.  
+Given a list of ticker symbols and a start date, the program retrieves data from Yahoo Finance using its API.  The
+data is then written to csv files, one for each stock.  The CSV files are read and the data is compiled into 
+a single JSON file that is then used to generate the graph.
 
 '''
+#SECTION 1: The program is devided into three sections.  This first section contains the import statements and class definition.
 
 #Supports JSON and CSV file read/write
 import json
@@ -55,6 +56,9 @@ class Stock():
 
 #==============================================================================================================
 
+#SECTION 2:  This section of the program gets data from Yahoo Finance based on the tracker_list, the start_date and today's date.  A CSV file is created for each stock.
+#Each CSV file contains historical data for the stock.  The individual CSV files are then compiled into one JSON file.
+
 # Tickers list
 ticker_list=['AIG', 'F', 'FB', 'GOOG', 'IBM', 'M', 'MSFT', 'RDS-A']
 
@@ -88,7 +92,7 @@ for symbol in ticker_list:
     fileName = symbol + "_" + str(today) + ".csv"
     fileNames.append(fileName)
 
-#Converts data in CSV files to one JSON file
+#Collects data in CSV files and compiles data to one JSON file
 jsonFileName = "stock_data_" + str(today) + ".json"
 data = {}
 
@@ -107,6 +111,9 @@ with open(jsonFileName, 'w') as jsonFile:
 
 #==============================================================================================================
 
+#SECTION 3: This third and final section reads the JSON file and creates a dictionary based on the data found.  The 
+#dictionary is then used to generate the graph.
+
 #Opens AllStocks.json
 filePath = jsonFileName
 with open(filePath) as f:
@@ -114,7 +121,7 @@ with open(filePath) as f:
 
 investmentDictionary = {}
 
-#iterate through json file and add each time a new DogID is encountered, add it to dogDictionary
+#iterate through json file and add each time a new symbol is encountered, add it to the investmentDictionary
 for investment in dataSet:
     investmentStr = str(investment)
     symbol = investmentStr[0:investmentStr.index("_")]
