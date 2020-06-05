@@ -111,8 +111,8 @@ with open(jsonFileName, 'w') as jsonFile:
 
 #==============================================================================================================
 
-#SECTION 3: This third and final section reads the JSON file and creates a dictionary based on the data found.  The 
-#dictionary is then used to generate the graph.
+#SECTION 3: This third and final section reads the JSON file and creates a dictionary based on the data found.  
+#The dictionary is then used to generate the graph.
 
 #Opens AllStocks.json
 filePath = jsonFileName
